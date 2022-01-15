@@ -1,43 +1,49 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import React from 'react';
 
 function App() {
 
-  const getDate = () => {
-    let date = new Date();
-    let dia = date.getUTCDate();
-    let mes = date.getMonth() + 1;
-    let ano = date.getUTCFullYear();
-    let hora = date.getHours();
-    let min = date.getMinutes();
-    return `${dia}-${mes}-${ano} ${hora}:${min}`;
-  }
-
-  const initState = []
-
   const reducer = (state,action) => {
     switch(action.type) {
-      case 'add':
-        return [...state, getDate()];
-      case 'remove':
-        return state.slice(0, (state.length - 1));
+      case 'Somar':
+        return {result:parseFloat(state.result) + parseFloat(action.payload)};
+      case 'Subtrair':
+        return {result: parseFloat(state.result) - parseFloat(action.payload)};
+      case 'Multiplicar':
+        return {result: parseFloat(state.result)*parseFloat(action.payload)};
+      case 'Dividir':
+        return {result: parseFloat(state.result)/parseFloat(action.payload)};
       default:
         throw new Error();
     }
   }
 
-  const [state, dispatch] = useReducer(reducer,initState);
+  const [state, dispatch] = useReducer(reducer,{result: 0});
+
+  const [data, setData] = useState({operacao: 'Somar', valor: 0})
+
+  const handleChangeValor = (e) => {
+    if (e.target.value !== '0') {
+      setData({...data, valor: e.target.value})
+    }
+  }
+ 
+  const handleChangeOp = (e) => {
+    setData({...data, operacao: e.target.value});
+  }
 
   return ( 
   <>
-    <h1>Lista de datas</h1>
-    <button onClick={()=>dispatch({type: 'add'})}>Adicionar</button>
-    <button onClick={()=>dispatch({type: 'remove'})}>Remover</button>
-    <ul>{state.map((valor,index) => (
-      <li key={index}>{valor}</li>
-    ))
-    }
-    </ul>
+    <h1>Calculadora</h1>
+    <input type='number' onChange={handleChangeValor}/>
+    <select  onChange={handleChangeOp}>
+      <option value={'Somar'}>Somar</option>
+      <option value={'Subtrair'}>Subtrair</option>
+      <option value={'Multiplicar'}>Multiplicar</option>
+      <option value={'Dividir'}>Dividir</option>
+    </select>
+    <button onClick={()=>dispatch({type: data.operacao, payload: data.valor })}>Calcular</button>
+    <p>{state.result}</p>
   </>
   );
 }
