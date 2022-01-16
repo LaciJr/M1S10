@@ -1,5 +1,5 @@
 import React from 'react';
-import { AutenticatorProvider, IsAut, Usuario } from "./Usuario";
+import { AlteraTema, AutenticatorProvider, IsAut, Usuario } from "./Usuario";
 
 // function App() {
 
@@ -53,6 +53,7 @@ export default function App() {
    <AutenticatorProvider>
      <IsAut/>
      <Usuario/>
+     <AlteraTema/>
    </AutenticatorProvider>
   )
 }
