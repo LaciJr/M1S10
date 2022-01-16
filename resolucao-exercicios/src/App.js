@@ -1,7 +1,9 @@
 import React from 'react';
-import { AlteraTema, AutenticatorProvider, IsAut, Usuario } from "./Usuario";
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from './Router';
+// import { AlteraTema, AutenticatorProvider, IsAut, Usuario } from "./Usuario";
 
-// function App() {
+// export default function App() {
 
 //   const reducer = (state,action) => {
 //     switch(action.type) {
@@ -48,12 +50,22 @@ import { AlteraTema, AutenticatorProvider, IsAut, Usuario } from "./Usuario";
 //   );
 // }
 
+// export default function App() {
+//   return (
+//    <AutenticatorProvider>
+//      <IsAut/>
+//      <Usuario/>
+//      <AlteraTema/>
+//    </AutenticatorProvider>
+//   )
+// }
+
 export default function App() {
   return (
-   <AutenticatorProvider>
-     <IsAut/>
-     <Usuario/>
-     <AlteraTema/>
-   </AutenticatorProvider>
+    <>
+    <BrowserRouter>
+      <Router/>
+    </BrowserRouter>
+    </>
   )
 }
